@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<user_interface id="admin">
+		<admin>israt ahamed sabbir</admin>
+		<site_title/>
+		<meta_tag/>
+		<copy_right/>
+		<icon></icon>
+		<banner>Untitled-1.jpg</banner>
+		<slider_one>Untitled-1.jpg</slider_one>
+		<slider_two>Untitled-2.jpg</slider_two>
+		<slider_three>Untitled-3.jpg</slider_three>
+		<facebook>http://www.google.com</facebook>
+		<twitter/>
+		<linkedin/>
+		<youtube/>
+		<instagram/>
+		<page>blog_post</page>
+		<loop_item>5</loop_item>
+	</user_interface>
+</root>

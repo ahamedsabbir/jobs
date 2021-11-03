@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<admin id='isratahamedsabbir@gmail.com'>
+		<name>admin</name>
+		<password>1111</password>
+		<mobile>1111</mobile>
+		<level>1</level>
+		<photo>1111</photo>
+		<code>1111</code>
+	</admin>
+</root>
