@@ -176,53 +176,42 @@ class admin_job_controller_class extends main_controller_class{
 			$text_validation_object->text_validate("title");
 			$text_validation_object->text_validate("content");
 			
-			$parmited_image_extention = array("jpg","png","jpeg","gif");
-			$file_validation_object->file_validate('icon')->chack_error()->file_size("1000000")->file_extention($parmited_image_extention);
+			$delete_data = $model_object->select_post_by_id("job_post_table", $get_id_form_page);
+			if(empty($_FILES['icon']['name'])){
+				$icon = $delete_data[0]['icon'];
+            }else{
+				$parmited_image_extention = array("jpg","png","jpeg","gif");
+				$file_validation_object->file_validate('icon')->chack_error()->file_size("1000000")->file_extention($parmited_image_extention);
+				$icon = $file_validation_object->valid_data['icon'];
+				$icon_chack = file_exists("app/view/admin/upload/img/".$delete_data[0]['icon']);
+				if(isset($icon_chack)){
+					unlink("app/view/admin/upload/img/".$delete_data[0]['icon']);
+					move_uploaded_file($file_validation_object->valid_data['icon_temp_name'],"app/view/admin/upload/img/".$icon);
+				}
+			}
+			
+			
             if(empty($_FILES['file']['name'])){
-                $file = "";
+                $file =$delete_data[0]['file'];
             }else{
                 $parmited_image_extention = array("pdf","zip","rar");
 			    $file_validation_object->file_validate('file')->chack_error()->file_size("1000000")->file_extention($parmited_image_extention);
                 $file = $file_validation_object->valid_data['file'];
+				$file_chack = 	file_exists("app/view/admin/upload/file/".$delete_data[0]['file']);
+				if(isset($file_chack)){
+					unlink("app/view/admin/upload/file/".$delete_data[0]['file']);
+					move_uploaded_file($file_validation_object->valid_data['file_temp_name'],"app/view/admin/upload/file/".$file);
+				}
             }
 			    
-            
-			
-			$delete_data = $model_object->select_post_by_id("job_post_table", $get_id_form_page);
-			
-			if(isset($delete_data)){
-				foreach($delete_data as $key => $value){
-					
-					$icon_chack = file_exists("app/view/admin/upload/img/".$value['icon']);
-					$file_chack = 	file_exists("app/view/admin/upload/file/".$value['file']);
-					if($icon_chack == 1 and $file_chack == 1){
-                        unlink("app/view/admin/upload/img/".$value['icon']);
-                        unlink("app/view/admin/upload/file/".$value['file']);
-					}
-				
-					
-				}
-				
-				move_uploaded_file($file_validation_object->valid_data['icon_temp_name'],"app/view/admin/upload/img/".$file_validation_object->valid_data['icon']);
-                if(isset($_FILES['file']['name'])){
-                    move_uploaded_file($file_validation_object->valid_data['file_temp_name'],"app/view/admin/upload/file/".$file_validation_object->valid_data['file']);
-                }
-							
-				
-			}			
-			
-			
-			
-			
-			
-			
+
 			$update_data_array =  array(
 								'id' => $get_id_form_page,
                                 'title' => $text_validation_object->valid_data['title'],
                                 'dedline' => $text_validation_object->valid_data['dedline'],
                                 'content' => $text_validation_object->valid_data['content'],
                                 'location' => $_POST['location'],
-                                'icon' => $file_validation_object->valid_data['icon'],
+                                'icon' => $icon,
                                 'file' => $file
                             );
 			
