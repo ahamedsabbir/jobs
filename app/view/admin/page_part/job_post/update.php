@@ -99,7 +99,7 @@ if(isset($post_cat_name)){
 			<img src="app/view/admin/upload/img/<?php echo $value["icon"]; ?>" width="200px">
 		</div>
 		
-		</div><?php echo $_SERVER["SCRIPT_NAME"]; ?>
+		</div>
 
 <?php
    }
