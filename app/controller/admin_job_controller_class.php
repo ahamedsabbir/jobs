@@ -126,19 +126,7 @@ class admin_job_controller_class extends main_controller_class{
     
     
     
-	public function delete_job_post_function($delete_id){
-        $data_array = array();
-        $modelname = $this->page_model_validation_object_array->model_load_function("admin_db_model_class");
-        $data_array["delete"] = $modelname->select_post_by_id("job_post_table", $delete_id);
-        foreach($data_array["delete"] as $key => $value){
-            if($value['id'] == $delete_id){
-                $modelname->delete_model_function("job_post_table",$delete_id);
-                unlink("app/view/admin/upload/img/".$value['icon']);
-                unlink("app/view/admin/upload/file/".$value['file']);
-				header("location:".BASE_URL."admin_job_controller_class");
-            }
-        }
-	} 
+ 
    
 	
 	function update_page_method($update_id = null){
@@ -237,8 +225,19 @@ class admin_job_controller_class extends main_controller_class{
 	
 	
 	
-	
-	
+	public function delete_job_post_function($delete_id){
+        $data_array = array();
+        $modelname = $this->page_model_validation_object_array->model_load_function("admin_db_model_class");
+        $data_array["delete"] = $modelname->select_post_by_id("job_post_table", $delete_id);
+        foreach($data_array["delete"] as $key => $value){
+            if($value['id'] == $delete_id){
+                unlink("app/view/admin/upload/img/".$value['icon']);
+                unlink("app/view/admin/upload/file/".$value['file']);
+				$modelname->delete_model_function("job_post_table",$delete_id);
+				header("location:".BASE_URL."admin_job_controller_class");
+            }
+        }
+	}
 	
 	
 	
@@ -266,7 +265,7 @@ class admin_job_controller_class extends main_controller_class{
 					  move_uploaded_file($file, 'app/view/admin/upload/' . $new_image_name);
 					  $function_number = $_GET['CKEditorFuncNum'];
 					  $url = 'app/view/admin/upload/' . $new_image_name;
-					  $message = '';
+					  $message = 'upload success';
 					  echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($function_number, '$url', '$message');</script>";
 				 }
 		}	

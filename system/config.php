@@ -36,5 +36,5 @@ define("LOOP_ITEM", 5);
 /*
 *Upload function
 */
-define("UPLOAD", 'http://localhost/mvc_project/index.php?url=admin_job_controller_class/blog_image_upload_method/');
+define('UPLOAD', BASE_URL."admin_job_controller_class/blog_image_upload_method/");
 ?>
